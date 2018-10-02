@@ -1,0 +1,43 @@
+name:                cordial
+version:             1
+synopsis:            A Discord bot framework built atop discord-haskell.
+homepage:            https://github.com/relrod/cordial
+license:             BSD3
+license-file:        LICENSE
+author:              Rick Elrod
+maintainer:          rick@elrod.me
+copyright:           (c) 2018 Rick Elrod
+category:            Web
+build-type:          Simple
+extra-source-files:  ChangeLog.md
+cabal-version:       >= 1.10
+
+library
+  exposed-modules:     Cordial.Core
+                     , Cordial.Core.Types
+                     , Cordial.Core.Utility
+                     , Cordial.Module.Demo
+                     , Cordial.Module.Help
+                     , Cordial.Module.Gatekeeper
+  build-depends:       base >= 4 && < 5
+                     --NOTE: We currently require discord-haskell from their git
+                     , discord-haskell
+                     , random >= 1 && < 2
+                     , smtp-mail >= 0.1 && < 0.2
+                     , sqlite-simple > 0.4 && < 0.5
+                     , text >= 1.2 && < 2
+  hs-source-dirs:      src
+  default-language:    Haskell2010
+
+executable yph-cordial
+  main-is:             YPH.hs
+  build-depends:       cordial
+                     , base >= 4 && < 5
+                     , discord-haskell >= 0.5 && < 1
+                     , discord-haskell
+                     , random >= 1 && < 2
+                     , smtp-mail >= 0.1 && < 0.2
+                     , sqlite-simple > 0.4 && < 0.5
+                     , text >= 1.2 && < 2
+  hs-source-dirs:      src/exe
+  default-language:    Haskell2010
