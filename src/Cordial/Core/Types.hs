@@ -43,7 +43,10 @@ defConfig =
 -- *and remember to gracefully disregard the rest*.
 --
 -- Callbacks get fired *before* command handling is executed.
-data Callback = Callback (Dis -> Event -> IO ())
+data Callback =
+  Callback
+  Bool -- ^ Should we send everything including our own messages?
+  (Dis -> Event -> IO ()) -- ^ The callback to fire
 
 -- | Basic information for a module.
 --

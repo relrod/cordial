@@ -81,7 +81,7 @@ confirmid predicates = ModuleCommand "confirmid" help $ \cfg dis msg -> do
 
 -- | A callback that sends a message to a user when they join.
 greetUser :: Callback
-greetUser = Callback fn
+greetUser = Callback False fn
   where
     fn dis (GuildMemberAdd snowflake member) = do
       chan <- createDM dis (memberUser member)
