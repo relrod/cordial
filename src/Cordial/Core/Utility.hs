@@ -1,3 +1,4 @@
+{-# LANGUAGE OverloadedStrings #-}
 -----------------------------------------------------------------------------
 -- |
 -- Module : Cordial.Core.Utility
@@ -12,6 +13,7 @@
 ----------------------------------------------------------------------------
 module Cordial.Core.Utility where
 
+import Data.Monoid ((<>))
 import qualified Data.Text as T
 import Discord
 import Cordial.Core.Types (Dis)
@@ -38,3 +40,10 @@ createDM dis user = do
   resp <- restCall dis (CreateDM (userId user))
   putStrLn $ "[DM CREATE] " ++ show resp
   return (fmap channelId resp)
+
+-- | Truncate a 'T.Text' if it is too long.
+trunc :: Int -> T.Text -> T.Text
+trunc len t =
+  if T.length t > len
+  then T.take len t <> "..."
+  else t
