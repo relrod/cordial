@@ -11,6 +11,8 @@ import Cordial.Core.Utility
 import Cordial.Module.Demo
 import Cordial.Module.Help
 import Cordial.Module.Gatekeeper
+import Cordial.Module.Logger
+import Cordial.Module.Web
 
 preds :: [GatekeeperPredicate]
 preds =
@@ -19,7 +21,12 @@ preds =
 
 cordialConfig :: String -> CordialConfig
 cordialConfig tkn = defConfig { botToken = T.pack tkn
-                              , botModules = [demoModule, helpModule, gatekeeperModule preds]
+                              , botModules = [ demoModule
+                                             , helpModule
+                                             --, gatekeeperModule preds
+                                             , loggerModule "/home/ricky/dev/haskell/cordial/yphlogs"
+                                             , webModule
+                                             ]
                               }
 
 main :: IO ()
