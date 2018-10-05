@@ -10,3 +10,4 @@ cabal-dev
 cabal.sandbox.config
 cabal.config
 the-log-of-discord-haskell.txt
+yphlogs
