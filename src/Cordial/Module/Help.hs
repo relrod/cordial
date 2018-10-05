@@ -25,7 +25,9 @@ helpModule =
 
 modulesCmd :: ModuleCommand
 modulesCmd = ModuleCommand "modules" help $ \cfg dis msg -> do
-  reply dis msg (T.pack . show $ fmap (\m -> name m <> " (" <> description m <> ")") (botModules cfg))
+  let mods = fmap (\m -> "  • " <> name m <> " (" <> description m <> ")") (botModules cfg)
+      text = "Enabled modules:\n" <> T.unlines mods
+  reply dis msg text
   where help = Just "Lists enabled modules."
 
 helpCmd :: ModuleCommand
@@ -45,6 +47,7 @@ helpCmd = ModuleCommand "help" help $ \cfg dis msg -> do
 
 commandsCmd :: ModuleCommand
 commandsCmd = ModuleCommand "commands" help $ \cfg dis msg -> do
+  let mods = filter (\m -> not . null  $ commands m) (botModules cfg)
   reply dis msg (T.intercalate ", " $
-                  fmap (\m -> name m <> " (" <> T.intercalate ", " (fmap command (commands m)) <> ")") (botModules cfg))
+                  fmap (\m -> name m <> " (" <> T.intercalate ", " (fmap command (commands m)) <> ")") mods)
   where help = Just "Lists commands in each enabled module."
